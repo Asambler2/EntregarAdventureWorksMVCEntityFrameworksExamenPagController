@@ -1,0 +1,201 @@
+﻿@model PagedList.IPagedList<EntregarAdventureWorksMVCEntityFrameworks.Models.SalesOrderHeader>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Busca por Nombre: <input id="texto" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <a asp-action="Index">Vuelve a la lista entera</a>
+        </p>
+    </div>
+</form>
+<table class="table" id="tableData">
+    <thead>
+        <tr>
+            <th>
+                RevisionNumber
+            </th>
+            <th>
+                OrderDate
+            </th>
+            <th>
+                DueDate
+            </th>
+            <th>
+                ShipDate
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                OnlineOrderFlag
+            </th>
+            <th>
+                SalesOrderNumber
+            </th>
+            <th>
+                PurchaseOrderNumber
+            </th>
+            <th>
+                AccountNumber
+            </th>
+            <th>
+                CustomerId
+            </th>
+            <th>
+               SalesPersonId
+            </th>
+            <th>
+                TerritoryId
+            </th>
+            <th>
+                BillToAddressId
+            </th>
+            <th>
+                ShipToAddressId
+            </th>
+            <th>
+                ShipMethodId
+            </th>
+            <th>
+                CreditCardId
+            </th>
+            <th>
+                CreditCardApprovalCode
+            </th>
+            <th>
+                CurrencyRateId
+            </th>
+            <th>
+                SubTotal
+            </th>
+            <th>
+                TaxAmt
+            </th>
+            <th>
+                Freight
+            </th>
+            <th>
+                TotalDue
+            </th>
+            <th>
+                Comment
+            </th>
+            <th>
+                Rowguid
+            </th>
+            <th>
+                ModifiedDate
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RevisionNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnlineOrderFlag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalesOrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseOrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalesPersonId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TerritoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillToAddressId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipToAddressId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipMethodId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditCardId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditCardApprovalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrencyRateId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxAmt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Freight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalDue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rowguid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SalesOrderId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SalesOrderId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SalesOrderId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="d-flex">
+    Pagina
+    <form asp-action="Index" asp-controller="SalesOrderHeaders" class="m-3">
+        <input type="hidden" value="@((Model.PageNumber != 1 ? Model.PageNumber - 1 : 1))" name="page" />
+        <input type="submit" asp-action="Index" asp-controller="SalesOrderHeaders" name="page" class="p-3" value="@(Model.PageNumber != 1 ? Model.PageNumber - 1 : 1)">
+    </form>
+
+    <form asp-action="Index" asp-controller="SalesOrderHeaders" class="m-3">
+        <input type="hidden" value="@(Model.PageNumber + 1)" name="page" />
+        <input type="submit" asp-action="Index" asp-controller="SalesOrderHeaders" name="page" class="p-3" value="@(Model.PageNumber + 1)">
+    </form>
+</div>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

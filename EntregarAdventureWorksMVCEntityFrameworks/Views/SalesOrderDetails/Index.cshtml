@@ -1,0 +1,116 @@
+﻿
+@model PagedList.IPagedList<EntregarAdventureWorksMVCEntityFrameworks.Models.SalesOrderDetail>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Busca por Nombre: <input id="texto" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <a asp-action="Index">Vuelve a la lista entera</a>
+        </p>
+    </div>
+</form>
+<table class="table" id="tableData">
+    <thead>
+    <tr>
+        <th>
+            CarrierTrackingNumber
+        </th>
+        <th>
+            OrderQty
+        </th>
+        <th>
+            ProductId
+        </th>
+        <th>
+            SpecialOfferId
+        </th>
+        <th>
+            UnitPrice
+        </th>
+        <th>
+            UnitPriceDiscount
+        </th>
+        <th>
+            LineTotal
+        </th>
+        <th>
+            Rowguid
+        </th>
+        <th>
+            ModifiedDate
+        </th>
+        <th>
+            SalesOrder
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarrierTrackingNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderQty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecialOfferId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPriceDiscount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LineTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rowguid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalesOrder.SalesOrderId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<div class="d-flex">
+    Pagina
+    <form asp-action="Index" asp-controller="SalesOrderDetails" class="m-3">
+        <input type="hidden" value="@((Model.PageNumber != 1 ? Model.PageNumber - 1 : 1))" name="page"/>
+        <input type="submit" asp-action="Index" asp-controller="SalesOrderDetails" name="page" class="p-3" value="@(Model.PageNumber != 1 ? Model.PageNumber - 1 : 1)">
+    </form>
+
+    <form asp-action="Index" asp-controller="SalesOrderDetails" class="m-3">
+        <input type="hidden" value="@(Model.PageNumber + 1)" name="page"/>
+        <input type="submit" asp-action="Index" asp-controller="SalesOrderDetails" name="page" class="p-3" value="@(Model.PageNumber + 1)">
+    </form>
+</div>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
