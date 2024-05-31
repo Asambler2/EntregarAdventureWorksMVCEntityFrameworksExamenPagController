@@ -37,6 +37,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="SalesOrderDetails" asp-action="IndexFiltrado3">Filtrado3</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="SalesOrderDetails" asp-action="IndexVista4">JoinSalesOrderDetailYProducto</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -66,8 +69,8 @@
                 if (!this.asc) { rows = rows.reverse() }
                 for (var i = 0; i < rows.length; i++) { table.append(rows[i]) }
 
-                if (filtrado) $('#tableData').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: 100, delIndex: false });
-                if (!filtrado) $('#tableData').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: 100, delIndex: true });
+                if (filtrado) $('#tableData').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: $("#numFilas").val(), delIndex: false });
+                if (!filtrado) $('#tableData').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: $("#numFilas").val(), delIndex: true });
             });
         }
         function comparer(index) {
@@ -105,7 +108,7 @@
                 $(this).show();
             });
             filtrado = true;
-            $('#tableData').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: 100, delIndex: false });
+            $('#tableData').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: $("#numFilas").val(), delIndex: false });
         });
     </script>
 <script>
@@ -190,8 +193,8 @@
             }
 
             function goTo(page) {
-                var startAt = page * perPage,
-                    endOn = startAt + perPage;
+                var startAt = page * parseInt(perPage),
+                    endOn = startAt + parseInt(perPage);
 
                 children.css('display', 'none').slice(startAt, endOn).show();
 
@@ -218,7 +221,7 @@
 
         $(document).ready(function () {
 
-            $('#tableData').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: 100, delIndex: true });
+            $('#tableData').pageMe({ pagerSelector: '#myPager', showPrevNext: true, hidePageNumbers: false, perPage: $("#numFilas").val(), delIndex: true });
 
         });
     </script>

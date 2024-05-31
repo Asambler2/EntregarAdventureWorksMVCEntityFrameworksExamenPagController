@@ -20,7 +20,7 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
         }
 
         // GET: SalesOrderHeaders
-        public async Task<IActionResult> Index(int? page, int size = 1000)
+        public async Task<IActionResult> Index(int? page, int size = 500, int rango = 100)
         {
             int pageSize = size;
             int pageNumber = (page ?? 1);

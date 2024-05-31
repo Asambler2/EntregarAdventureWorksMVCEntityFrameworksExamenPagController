@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EntregarAdventureWorksMVCEntityFrameworks.Models;
+using EntregarAdventureWorksMVCEntityFrameworks.ViewModel;
 using PagedList;
+using System.ComponentModel.DataAnnotations;
 
 namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
 {
@@ -20,13 +22,14 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
         }
 
         // GET: SalesOrderDetails
-        public async Task<IActionResult> Index(int? page, int size = 1000)
+        public async Task<IActionResult> Index(int? page, int size = 500, int rango = 100)
         {
             var adventureWorks2016Context = _context.SalesOrderDetail.Include(s => s.SalesOrder);
             int pageSize = size;
             int pageNumber = (page ?? 1);
             ViewBag.Size = size;
-            return View( adventureWorks2016Context.ToPagedList(pageNumber, pageSize));
+            ViewBag.Rango = rango;
+            return View(adventureWorks2016Context.ToPagedList(pageNumber, pageSize));
         }
 
         public async Task<IActionResult> IndexFiltrado1()
@@ -57,6 +60,36 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
                 orderby fila.ModifiedDate, fila.SalesOrder
                            select fila;
             return View(await Filtrado.ToListAsync());
+        }
+
+        public async Task<IActionResult> IndexVista4()
+        {
+            var JoinSalesOrderDetailProduct  = from product in _context.Product
+                join sales in _context.SalesOrderDetail
+                    on product.ProductId equals sales.ProductId
+                where sales.OrderQty > 2
+                orderby product.Name, product.Color
+                select new SalesOrderDetailProductJoinViewModel()
+                {
+        
+                    Name = product.Name,
+                    Color = product.Color,
+                    SalesOrderId = sales.SalesOrderId,
+                    SalesOrderDetailId = sales.SalesOrderDetailId,
+                    CarrierTrackingNumber = sales.CarrierTrackingNumber,
+                    OrderQty = sales.OrderQty,
+                    ProductId = sales.ProductId,
+                    SpecialOfferId = sales.SpecialOfferId, 
+                    UnitPrice = sales.UnitPrice,
+                    UnitPriceDiscount = sales.UnitPriceDiscount,
+                    LineTotal = sales.LineTotal,
+                    Rowguid = sales.Rowguid,
+                    ModifiedDate = sales.ModifiedDate,
+                };
+            var AgrupadoPorColor = from Venta in JoinSalesOrderDetailProduct
+                group Venta by Venta.Color into grupo
+                select grupo;
+            return View(await AgrupadoPorColor.ToListAsync());
         }
 
         // GET: SalesOrderDetails/Details/5

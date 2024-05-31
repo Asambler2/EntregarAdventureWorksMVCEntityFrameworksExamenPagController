@@ -190,24 +190,33 @@
     Pagina
     <form asp-action="Index" asp-controller="SalesOrderHeaders" class="m-3">
         <input type="hidden" value="@(Model.PageNumber != 1 ? Model.PageNumber - 1 : 1)" name="page" />
-        <input type="hidden" name="size" class="rango" />
+        <input type="hidden" name="size" value="@(@ViewBag.Size)"/>
+        <input type="hidden" name="rango" value="@(@ViewBag.Rango)" />
         <input type="submit" asp-action="Index" asp-controller="SalesOrderHeaders" name="page" class="p-3" value="@(Model.PageNumber != 1 ? Model.PageNumber - 1 : 1)">
     </form>
 
     <form asp-action="Index" asp-controller="SalesOrderHeaders" class="m-3">
         <input type="hidden" value="@(Model.PageNumber + 1)" name="page" />
-        <input type="hidden" name="size" class="rango" value="@(@ViewBag.Size)" />
+        <input type="hidden" name="size" value="@(@ViewBag.Size)" />
+        <input type="hidden" name="rango" value="@(@ViewBag.Rango)" />
         <input type="submit" asp-action="Index" asp-controller="SalesOrderHeaders" name="page" class="p-3" value="@(Model.PageNumber + 1)">
     </form>
     <form asp-action="Index" asp-controller="SalesOrderHeaders" class="m-3">
         <input type="number"  name="page" />
-        <input type="hidden" name="size" class="rango" value="@(@ViewBag.Size)" />
+        <input type="hidden" name="size" value="@(@ViewBag.Size)" />
+        <input type="hidden" name="rango" value="@(@ViewBag.Rango)" />
         <input type="submit" asp-action="Index" asp-controller="SalesOrderHeaders" name="page" class="p-3" value="enviar pagina">
     </form>
 </div>
 <form asp-action="Index" asp-controller="SalesOrderHeaders" class="m-3">
-    Escribe la cantidad de filas por pagina: <input id="rango" type="number" name="size" value="@(@ViewBag.Size)" />
+    Escribe la cantidad de filas por pagina: <input type="number" name="size" value="@(@ViewBag.Size)" />
+    <input type="hidden" name="rango" value="@(@ViewBag.Rango)" />
     <input type="submit" asp-action="Index" asp-controller="SalesOrderHeaders" name="size" class="p-3" value="Enviar pagina">
+</form>
+<form asp-action="Index" asp-controller="SalesOrderHeaders" class="m-3">
+    Escribe la cantidad de filas por subpagina: <input id="numFilas" type="number" name="rango" value="@(@ViewBag.Rango)" />
+    <input type="hidden" name="size" value="@(@ViewBag.Size)" />
+    <input type="submit" asp-action="Index" asp-controller="SalesOrderHeaders" name="rango" class="p-3" value="Enviar pagina">
 </form>
 Subpaginas de la pagina
 <ul class="pagination pagination-lg pager" id="myPager"></ul>
