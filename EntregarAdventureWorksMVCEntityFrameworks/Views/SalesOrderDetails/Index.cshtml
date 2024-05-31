@@ -111,6 +111,11 @@
         <input type="hidden" value="@(Model.PageNumber + 1)" name="page"/>
         <input type="submit" asp-action="Index" asp-controller="SalesOrderDetails" name="page" class="p-3" value="@(Model.PageNumber + 1)">
     </form>
+    <form asp-action="Index" asp-controller="SalesOrderDetailes" class="m-3">
+        <input type="number" name="page" />
+        <input type="submit" asp-action="Index" asp-controller="SalesOrderDetails" name="page" class="p-3" value="Enviar pagina">
+    </form>
 </div>
+Subpaginas de la pagina<ul class="pagination pagination-lg pager" id="myPager"></ul>
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

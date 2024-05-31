@@ -22,7 +22,7 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
         // GET: SalesOrderHeaders
         public async Task<IActionResult> Index(int? page)
         {
-            int pageSize = 15;
+            int pageSize = 1000;
             int pageNumber = (page ?? 1);
             return View(_context.SalesOrderHeader.ToPagedList(pageNumber, pageSize));
         }

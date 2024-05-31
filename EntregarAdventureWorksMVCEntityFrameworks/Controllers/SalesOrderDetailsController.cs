@@ -23,7 +23,7 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
         public async Task<IActionResult> Index(int? page)
         {
             var adventureWorks2016Context = _context.SalesOrderDetail.Include(s => s.SalesOrder);
-            int pageSize = 15;
+            int pageSize = 1000;
             int pageNumber = (page ?? 1);
             return View( adventureWorks2016Context.ToPagedList(pageNumber, pageSize));
         }
