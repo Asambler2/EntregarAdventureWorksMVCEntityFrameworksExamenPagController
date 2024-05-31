@@ -20,11 +20,12 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
         }
 
         // GET: SalesOrderDetails
-        public async Task<IActionResult> Index(int? page)
+        public async Task<IActionResult> Index(int? page, int size = 1000)
         {
             var adventureWorks2016Context = _context.SalesOrderDetail.Include(s => s.SalesOrder);
-            int pageSize = 1000;
+            int pageSize = size;
             int pageNumber = (page ?? 1);
+            ViewBag.Size = size;
             return View( adventureWorks2016Context.ToPagedList(pageNumber, pageSize));
         }
 
