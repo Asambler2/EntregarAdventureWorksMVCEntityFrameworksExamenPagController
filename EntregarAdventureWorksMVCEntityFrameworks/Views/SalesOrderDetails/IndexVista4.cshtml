@@ -66,11 +66,11 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <form asp-action="IndexVista4" asp-controller="SalesOrderDetails">
-                <tr>
-                    <input type="submit" name="color" value="@(@Html.DisplayFor(modelItem => item.Key))" />
-                </tr>
-            </form>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key)
+                </td>
+            </tr>
             @foreach (var Linea in item)
             {
                 <tr>

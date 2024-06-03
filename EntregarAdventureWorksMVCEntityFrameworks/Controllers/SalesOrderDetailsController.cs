@@ -93,7 +93,6 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
                 var AgrupadoPorColor = from Venta in JoinSalesOrderDetailProduct.ToList().Take(new Range((pagina - 1) * tamano, (pagina * tamano)))
                                    group Venta by Venta.Color into grupo
                 select grupo;
-            Console.WriteLine("Page: " + page + ", " + "Size: " + size + ", " + "page * size: " + page * size + ", (page * size) + size: " + (pagina * tamano) + tamano + ", " + color);
             ViewBag.Totales = (JoinSalesOrderDetailProduct.Count() / size) + 1;
             return View(AgrupadoPorColor);
         }
