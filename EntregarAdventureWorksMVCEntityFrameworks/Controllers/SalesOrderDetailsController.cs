@@ -62,7 +62,7 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
             return View(await Filtrado.ToListAsync());
         }
 
-        public async Task<IActionResult> IndexVista4()
+        public async Task<IActionResult> IndexVista4(int? page, int size = 500, int rango = 100)
         {
             var JoinSalesOrderDetailProduct  = from product in _context.Product
                 join sales in _context.SalesOrderDetail
@@ -71,7 +71,6 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
                 orderby product.Name, product.Color
                 select new SalesOrderDetailProductJoinViewModel()
                 {
-        
                     Name = product.Name,
                     Color = product.Color,
                     SalesOrderId = sales.SalesOrderId,
@@ -79,7 +78,7 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
                     CarrierTrackingNumber = sales.CarrierTrackingNumber,
                     OrderQty = sales.OrderQty,
                     ProductId = sales.ProductId,
-                    SpecialOfferId = sales.SpecialOfferId, 
+                    SpecialOfferId = sales.SpecialOfferId,
                     UnitPrice = sales.UnitPrice,
                     UnitPriceDiscount = sales.UnitPriceDiscount,
                     LineTotal = sales.LineTotal,
@@ -89,7 +88,11 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
             var AgrupadoPorColor = from Venta in JoinSalesOrderDetailProduct
                 group Venta by Venta.Color into grupo
                 select grupo;
-            return View(await AgrupadoPorColor.ToListAsync());
+            int pageSize = size;
+            int pageNumber = (page ?? 1);
+            ViewBag.Size = size;
+            ViewBag.Rango = rango;
+            return View(AgrupadoPorColor.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: SalesOrderDetails/Details/5

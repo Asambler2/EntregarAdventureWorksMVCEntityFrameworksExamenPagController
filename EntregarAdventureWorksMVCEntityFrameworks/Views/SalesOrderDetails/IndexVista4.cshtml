@@ -1,14 +1,13 @@
-﻿@model PagedList.IPagedList<EntregarAdventureWorksMVCEntityFrameworks.ViewModel.SalesOrderDetailProductJoinViewModel>
+﻿@model PagedList.IPagedList<IGrouping<string, EntregarAdventureWorksMVCEntityFrameworks.ViewModel.SalesOrderDetailProductJoinViewModel>>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 
-
 @{
-    ViewData["Title"] = "IndexVista4";
+    ViewData["Title"] = "Index";
 }
 
-<h1>IndexVista4</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -24,80 +23,109 @@
 </form>
 <table class="table" id="tableData">
     <thead>
-        <tr>
-            <th>
-                CarrierTrackingNumber
-            </th>
-            <th>
-                OrderQty
-            </th>
-            <th>
-                ProductId
-            </th>
-            <th>
-                SpecialOfferId
-            </th>
-            <th>
-                UnitPrice
-            </th>
-            <th>
-                UnitPriceDiscount
-            </th>
-            <th>
-                LineTotal
-            </th>
-            <th>
-                Rowguid
-            </th>
-            <th>
-                ModifiedDate
-            </th>
-            <th>
-                SalesOrder
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Color
+        </th>
+        <th>
+            CarrierTrackingNumber
+        </th>
+        <th>
+            OrderQty
+        </th>
+        <th>
+            ProductId
+        </th>
+        <th>
+            SpecialOfferId
+        </th>
+        <th>
+            UnitPrice
+        </th>
+        <th>
+            UnitPriceDiscount
+        </th>
+        <th>
+            LineTotal
+        </th>
+        <th>
+            Rowguid
+        </th>
+        <th>
+            ModifiedDate
+        </th>
+        <th>
+            SalesOrder
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CarrierTrackingNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderQty)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SpecialOfferId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UnitPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UnitPriceDiscount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LineTotal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rowguid)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SalesOrder.SalesOrderId)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.DisplayFor(modelItem => item.Key)
                 </td>
             </tr>
+            foreach (var Linea in item)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.Color)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.CarrierTrackingNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.OrderQty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.ProductId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.SpecialOfferId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.UnitPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.UnitPriceDiscount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.LineTotal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.Rowguid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.ModifiedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Linea.SalesOrder.SalesOrderId)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new
+                        {
+                            /* id=item.PrimaryKey */
+                        }) |
+                        @Html.ActionLink("Details", "Details", new
+                        {
+                            /* id=item.PrimaryKey */
+                        }) |
+                        @Html.ActionLink("Delete", "Delete", new
+                        {
+                            /* id=item.PrimaryKey */
+                        })
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
