@@ -73,58 +73,62 @@
             </tr>
             @foreach (var Linea in item)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.Color)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.CarrierTrackingNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.OrderQty)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.ProductId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.SpecialOfferId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.UnitPrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.UnitPriceDiscount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.LineTotal)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.Rowguid)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.ModifiedDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Linea.SalesOrder.SalesOrderId)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new
-                        {
-                            /* id=item.PrimaryKey */
-                        }) |
-                        @Html.ActionLink("Details", "Details", new
-                        {
-                            /* id=item.PrimaryKey */
-                        }) |
-                        @Html.ActionLink("Delete", "Delete", new
-                        {
-                            /* id=item.PrimaryKey */
-                        })
-                    </td>
-                </tr>
+                int count = 0;
+                @if ((Linea.Color == null ? "": Linea.Color).Equals(ViewBag.Color == null ? "h" : ViewBag.Color))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.Color)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.CarrierTrackingNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.OrderQty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.ProductId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.SpecialOfferId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.UnitPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.UnitPriceDiscount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.LineTotal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.Rowguid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.ModifiedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Linea.SalesOrder.SalesOrderId)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new
+                            {
+                                /* id=item.PrimaryKey */
+                            }) |
+                            @Html.ActionLink("Details", "Details", new
+                            {
+                                /* id=item.PrimaryKey */
+                            }) |
+                            @Html.ActionLink("Delete", "Delete", new
+                            {
+                                /* id=item.PrimaryKey */
+                            })
+                        </td>
+                    </tr>
+                }
             }
         }
     </tbody>
@@ -163,5 +167,5 @@
 </form>
 Subpaginas de la pagina
 <ul class="pagination pagination-lg pager" id="myPager"></ul>
-Paginas totales: @(ViewBag.Page) de @(ViewBag.Totales)
+
 
