@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<IGrouping<string, EntregarAdventureWorksMVCEntityFrameworks.ViewModel.SalesOrderDetailProductJoinViewModel>>
+﻿@model IEnumerable<IGrouping<string, EntregarAdventureWorksMVCEntityFrameworks.ViewModel.SalesOrderDetailProductJoinViewModel>>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -66,12 +66,12 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Key)
-                </td>
-            </tr>
-            foreach (var Linea in item)
+            <form asp-action="IndexVista4" asp-controller="SalesOrderDetails">
+                <tr>
+                    <input type="submit" name="color" value="@(@Html.DisplayFor(modelItem => item.Key))" />
+                </tr>
+            </form>
+            @foreach (var Linea in item)
             {
                 <tr>
                     <td>
@@ -131,37 +131,37 @@
 </table>
 <div class="d-flex">
     Pagina
-    <form asp-action="Index" asp-controller="SalesOrderDetails" class="m-3">
-        <input type="hidden" value="@((Model.PageNumber != 1 ? Model.PageNumber - 1 : 1))" name="page" />
+    <form asp-action="IndexVista4" asp-controller="SalesOrderDetails" class="m-3">
+        <input type="hidden" value="@((ViewBag.Page != 1 ? @ViewBag.Page - 1 : 1))" name="page" />
         <input type="hidden" name="size" value="@(@ViewBag.Size)" />
         <input type="hidden" name="rango" value="@(@ViewBag.Rango)" />
-        <input type="submit" asp-action="Index" asp-controller="SalesOrderDetails" name="page" class="p-3" value="@(Model.PageNumber != 1 ? Model.PageNumber - 1 : 1)">
+        <input type="submit" asp-action="IndexVista4" asp-controller="SalesOrderDetails" name="page" class="p-3" value="@(ViewBag.Page != 1 ? ViewBag.Page - 1 : 1)">
     </form>
 
-    <form asp-action="Index" asp-controller="SalesOrderDetails" class="m-3">
-        <input type="hidden" value="@(Model.PageNumber + 1)" name="page" />
+    <form asp-action="IndexVista4" asp-controller="SalesOrderDetails" class="m-3">
+        <input type="hidden" value="@(ViewBag.Page + 1)" name="page" />
         <input type="hidden" name="size" value="@(@ViewBag.Size)" />
         <input type="hidden" name="rango" value="@(@ViewBag.Rango)" />
-        <input type="submit" asp-action="Index" asp-controller="SalesOrderDetails" name="page" class="p-3" value="@(Model.PageNumber + 1)">
+        <input type="submit" asp-action="IndexVista4" asp-controller="SalesOrderDetails" name="page" class="p-3" value="@(ViewBag.Page + 1)">
     </form>
-    <form asp-action="Index" asp-controller="SalesOrderDetailes" class="m-3">
+    <form asp-action="IndexVista4" asp-controller="SalesOrderDetailes" class="m-3">
         <input type="number" name="page" />
         <input type="hidden" name="size" value="@(@ViewBag.Size)" />
         <input type="hidden" name="rango" value="@(@ViewBag.Rango)" />
-        <input type="submit" asp-action="Index" asp-controller="SalesOrderDetails" name="page" class="p-3" value="Enviar pagina">
+        <input type="submit" asp-action="IndexVista4" asp-controller="SalesOrderDetails" name="page" class="p-3" value="Enviar pagina">
     </form>
 </div>
-<form asp-action="Index" asp-controller="SalesOrderDetailes" class="m-3">
+<form asp-action="IndexVista4" asp-controller="SalesOrderDetailes" class="m-3">
     Escribe la cantidad de filas por pagina: <input type="number" name="size" value="@(ViewBag.Size)" />
     <input type="hidden" name="rango" value="@(@ViewBag.Rango)" />
-    <input type="submit" asp-action="Index" asp-controller="SalesOrderDetails" name="size" class="p-3" value="Enviar pagina">
+    <input type="submit" asp-action="IndexVista4" asp-controller="SalesOrderDetails" name="size" class="p-3" value="Enviar rango pagina">
 </form>
-<form asp-action="Index" asp-controller="SalesOrderDetailes" class="m-3">
+<form asp-action="IndexVista4" asp-controller="SalesOrderDetailes" class="m-3">
     Escribe la cantidad de filas por subpagina: <input id="numFilas" type="number" name="rango" value="@(ViewBag.Rango)" />
     <input type="hidden" name="size" value="@(@ViewBag.Size)" />
-    <input type="submit" asp-action="Index" asp-controller="SalesOrderDetails" name="rango" class="p-3" value="Enviar pagina">
+    <input type="submit" asp-action="IndexVista4" asp-controller="SalesOrderDetails" name="rango" class="p-3" value="Enviar rango subpagina">
 </form>
 Subpaginas de la pagina
 <ul class="pagination pagination-lg pager" id="myPager"></ul>
+Paginas totales: @(ViewBag.Page) de @(ViewBag.Totales)
 
-Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

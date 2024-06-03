@@ -62,12 +62,12 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
             return View(await Filtrado.ToListAsync());
         }
 
-        public async Task<IActionResult> IndexVista4(int? page, int size = 500, int rango = 100)
+        public async Task<IActionResult> IndexVista4(string color = "", int page = 1, int size = 200, int rango = 50)
         {
             var JoinSalesOrderDetailProduct  = from product in _context.Product
                 join sales in _context.SalesOrderDetail
                     on product.ProductId equals sales.ProductId
-                where sales.OrderQty > 2
+                where sales.OrderQty > 2 
                 orderby product.Name, product.Color
                 select new SalesOrderDetailProductJoinViewModel()
                 {
@@ -85,14 +85,17 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
                     Rowguid = sales.Rowguid,
                     ModifiedDate = sales.ModifiedDate,
                 };
-            var AgrupadoPorColor = from Venta in JoinSalesOrderDetailProduct
-                group Venta by Venta.Color into grupo
-                select grupo;
-            int pageSize = size;
-            int pageNumber = (page ?? 1);
+            ViewBag.Page = page;
             ViewBag.Size = size;
             ViewBag.Rango = rango;
-            return View(AgrupadoPorColor.ToPagedList(pageNumber, pageSize));
+            int pagina = page;
+            int tamano = size;
+                var AgrupadoPorColor = from Venta in JoinSalesOrderDetailProduct.ToList().Take(new Range((pagina - 1) * tamano, (pagina * tamano)))
+                                   group Venta by Venta.Color into grupo
+                select grupo;
+            Console.WriteLine("Page: " + page + ", " + "Size: " + size + ", " + "page * size: " + page * size + ", (page * size) + size: " + (pagina * tamano) + tamano + ", " + color);
+            ViewBag.Totales = (JoinSalesOrderDetailProduct.Count() / size) + 1;
+            return View(AgrupadoPorColor);
         }
 
         // GET: SalesOrderDetails/Details/5
