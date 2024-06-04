@@ -62,7 +62,7 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
             return View(await Filtrado.ToListAsync());
         }
 
-        public async Task<IActionResult> IndexVista4(string color = "h", int page = 1, int size = 200, int rango = 50)
+        public async Task<IActionResult> IndexVista4(string color = "h", int page = 1, int size = 20, int total = 0)
         {
             var JoinSalesOrderDetailProduct  = from product in _context.Product
                 join sales in _context.SalesOrderDetail
@@ -87,10 +87,8 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
                 };
             ViewBag.Page = page;
             ViewBag.Size = size;
-            ViewBag.Rango = rango;
+            ViewBag.Total = total;
             ViewBag.Color = color;
-            int pagina = page;
-            int tamano = size;
                 var AgrupadoPorColor = from Venta in JoinSalesOrderDetailProduct.ToList()
                                    group Venta by Venta.Color into grupo
                 select grupo;
