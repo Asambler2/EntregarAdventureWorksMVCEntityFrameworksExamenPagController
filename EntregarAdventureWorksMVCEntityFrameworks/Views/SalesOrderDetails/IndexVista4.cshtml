@@ -26,7 +26,7 @@
     @foreach (var item in Model)
     {
         <form asp-action="IndexVista4" asp-controller="SalesOrderDetails">
-            <input type="submit" name="color" style="height: 40px; width: 150px; background-color: @Html.DisplayFor(modelItem => item.Key);" value="@Html.DisplayFor(modelItem => item.Key)" />
+            <input type="submit" name="color" style="height: 40px; width: 150px; background-color: @Html.DisplayFor(modelItem => item.Key)" value="@Html.DisplayFor(modelItem => item.Key)" />
         </form>
     }
 </div>
