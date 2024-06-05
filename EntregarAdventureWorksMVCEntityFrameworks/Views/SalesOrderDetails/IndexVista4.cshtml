@@ -39,7 +39,9 @@
         ViewBag.MediadoraColor = color;
         ViewBag.MediadoraTextColor = textColor;
         <form asp-action="IndexVista4" asp-controller="SalesOrderDetails">
-            <input type="submit" name="color" style="height: 40px; width: 100px; background-color: @(ViewBag.MediadoraColor); color: @(ViewBag.MediadoraTextColor);" value="@(ViewBag.MediadoraColor)" />
+            <input type="submit" style="height: 40px; width: 100px; background-color: @(ViewBag.MediadoraColor); color: @(ViewBag.MediadoraTextColor);" 
+                   value="@(ViewBag.MediadoraColor)" />
+            <input type="hidden" name="color" value="@(ViewBag.MediadoraColor.Equals(ViewBag.Color) ? "" : ViewBag.MediadoraColor)" />
         </form>
     }
 </div>
