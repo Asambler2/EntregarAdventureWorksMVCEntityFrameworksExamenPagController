@@ -22,11 +22,24 @@
         </p>
     </div>
 </form>
-<div class="d-flex justify-content-around">
+<div class="d-flex justify-content-around flex-wrap">
     @foreach (var item in Model)
     {
+        string color = item.Key == null ? "Sin Color" :  item.Key;
+        string textColor = "";
+        switch (color)
+        {
+            case "Black": textColor = "white";
+                break;
+            case "Blue": textColor = "white";
+                break;
+            default: textColor = "black";
+                break;
+        }
+        ViewBag.MediadoraColor = color;
+        ViewBag.MediadoraTextColor = textColor;
         <form asp-action="IndexVista4" asp-controller="SalesOrderDetails">
-            <input type="submit" name="color" style="height: 40px; width: 150px; background-color: @Html.DisplayFor(modelItem => item.Key)" value="@Html.DisplayFor(modelItem => item.Key)" />
+            <input type="submit" name="color" style="height: 40px; width: 100px; background-color: @(ViewBag.MediadoraColor); color: @(ViewBag.MediadoraTextColor);" value="@(ViewBag.MediadoraColor)" />
         </form>
     }
 </div>
@@ -80,15 +93,14 @@
             int count = (ViewBag.Page - 1) * tamano;
             int totalElementos = 0;
             string elColor = "";
-            Console.WriteLine("Tamaño: " + tamano + ", pagina: " + pagina + ", contador: " + count + ", cota superior: " + tamano * (pagina) + ", color: " + ViewBag.Color);
             @foreach (var Linea in item)
             {
-                @if ((Linea.Color == null ? "" : Linea.Color).Equals(ViewBag.Color == null ? "h" : ViewBag.Color))
+                @if ((Linea.Color == null ? "Sin Color" : Linea.Color).Equals(ViewBag.Color == null ? "h" : ViewBag.Color))
                 {
-                    elColor = Linea.Color;
+                    elColor = Linea.Color == null ? "Sin Color" : Linea.Color;
                     totalElementos++;
                 }
-                @if (((Linea.Color == null ? "" : Linea.Color).Equals(ViewBag.Color) && totalElementos < tamano * (pagina) && count < totalElementos))
+                @if (((Linea.Color == null ? "Sin Color" : Linea.Color).Equals(ViewBag.Color) && totalElementos < tamano * (pagina) && count < totalElementos))
                 {
                     <tr>
                         <td>

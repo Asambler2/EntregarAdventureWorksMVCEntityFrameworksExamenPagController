@@ -22,7 +22,7 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
         }
 
         // GET: SalesOrderDetails
-        public async Task<IActionResult> Index(int? page, int size = 500, int rango = 100)
+        public async Task<IActionResult> Index(int? page, int size = 200, int rango = 100)
         {
             var adventureWorks2016Context = _context.SalesOrderDetail.Include(s => s.SalesOrder);
             int pageSize = size;
@@ -89,6 +89,8 @@ namespace EntregarAdventureWorksMVCEntityFrameworks.Controllers
             ViewBag.Size = size;
             ViewBag.Total = total;
             ViewBag.Color = color;
+            ViewBag.MediadoraColor = "";
+            ViewBag.MediadoraTextColor = "";
                 var AgrupadoPorColor = from Venta in JoinSalesOrderDetailProduct.ToList()
                                    group Venta by Venta.Color into grupo
                 select grupo;
