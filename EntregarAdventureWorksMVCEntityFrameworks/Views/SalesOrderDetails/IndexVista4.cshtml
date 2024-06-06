@@ -14,10 +14,12 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<form asp-action="IndexVista4" method="get">
+<form id="formFiltro" asp-action="IndexVista4" method="get">
     <div class="form-actions no-color">
         <p>
-            Busca por Nombre: <input id="texto" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            Busca por Nombre: <input id="Filtro" type="text" name="filtro" value="@(ViewBag.Filtro)" />
+            <input type="submit" asp-action="IndexVista4" asp-controller="SalesOrderDetails" name="filtro" class="p-1" value="Filtrar">
+            <input type="hidden" name="color" value="@(@ViewBag.Color)" />
             <a asp-action="IndexVista4">Vuelve a la lista entera</a>
         </p>
     </div>
@@ -97,12 +99,20 @@
             string elColor = "";
             @foreach (var Linea in item)
             {
-                @if ((Linea.Color == null ? "Sin Color" : Linea.Color).Equals(ViewBag.Color == null ? "h" : ViewBag.Color))
+                bool contiene = (Linea.Name == null ? "": Linea.Name).Contains(ViewBag.Filtro) || (Linea.Color == null ? "Sin Color" : Linea.Color).Contains(ViewBag.Filtro) 
+                || (Linea.CarrierTrackingNumber == null? "" : Linea.CarrierTrackingNumber ).Contains(ViewBag.Filtro) || (Linea.OrderQty == null ? "" : Linea.OrderQty.ToString()).Contains(ViewBag.Filtro)
+                || (Linea.ProductId == null ? "" : Linea.ProductId.ToString()).Contains(ViewBag.Filtro) || (Linea.SpecialOfferId == null ? "" : Linea.SpecialOfferId.ToString()).Contains(ViewBag.Filtro) 
+                || (Linea.UnitPrice == null ? "" : Linea.UnitPrice.ToString()).Contains(ViewBag.Filtro) || (Linea.UnitPriceDiscount == null ? "" : Linea.UnitPriceDiscount.ToString()).Contains(ViewBag.Filtro) 
+                || (Linea.LineTotal == null ? "" : Linea.LineTotal.ToString()).Contains(ViewBag.Filtro) || (Linea.Rowguid == null ? "" : Linea.Rowguid.ToString()).Contains(ViewBag.Filtro)
+                || (Linea.ModifiedDate == null ? "" : Linea.ModifiedDate.ToString()).Contains(ViewBag.Filtro);
+
+                @if ((Linea.Color == null ? "Sin Color" : Linea.Color).Equals(ViewBag.Color == null ? "h" : ViewBag.Color) && contiene)
                 {
                     elColor = Linea.Color == null ? "Sin Color" : Linea.Color;
                     totalElementos++;
                 }
-                @if (((Linea.Color == null ? "Sin Color" : Linea.Color).Equals(ViewBag.Color) && totalElementos < tamano * (pagina) && count < totalElementos))
+               
+                @if ((Linea.Color == null ? "Sin Color" : Linea.Color).Equals(ViewBag.Color) && (totalElementos < tamano * pagina) && (count < totalElementos) && contiene)
                 {
                     <tr>
                         <td>
